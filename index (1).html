@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>हY Appstore</title>
+<meta name="description" content="Download my web apps as Android APKs. Live demos, screenshots, and direct installs." />
+
+<!-- Favicons -->
+<link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a0c10">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="हY Appstore">
+
+<!-- SEO + Social preview -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="हY Appstore — Apps by Himanshu Yadav">
+<meta property="og:description" content="Download my web apps as Android APKs. Live demos, screenshots, and direct installs.">
+<meta property="og:image" content="images/og-preview.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="हY Appstore — Apps by Himanshu Yadav">
+<meta name="twitter:description" content="Download my web apps as Android APKs.">
+<meta name="twitter:image" content="images/og-preview.png">
+
+<style>
+  :root {
+    --bg: #0a0c10;
+    --bg-soft: #10141b;
+    --card: #151a23;
+    --card-hover: #1b2230;
+    --border: #232a38;
+    --text: #e8edf5;
+    --muted: #8a95a8;
+    --accent: #4f8cff;
+    --accent-2: #7c5cff;
+    --green: #22c55e;
+    --star: #fbbf24;
+    --radius: 18px;
+    --max: 1200px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Inter, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+  img { display: block; max-width: 100%; }
+
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- Header ---------- */
+  header {
+    position: sticky; top: 0; z-index: 40;
+    backdrop-filter: blur(16px);
+    background: rgba(10, 12, 16, 0.82);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav {
+    display: flex; align-items: center; gap: 16px;
+    height: 68px;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 800; letter-spacing: -0.03em; font-size: 1.15rem;
+    white-space: nowrap;
+  }
+  .logo-mark {
+    display: grid; place-items: center;
+    width: 34px; height: 34px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    font-size: 1.05rem; font-weight: 800; color: #fff;
+  }
+  .logo span { color: var(--accent); }
+
+  .search { flex: 1; max-width: 460px; position: relative; }
+  .search input {
+    width: 100%; height: 42px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0 16px 0 42px;
+    color: var(--text); font-size: 0.92rem;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .search input:focus { border-color: var(--accent); background: #0d1119; }
+  .search input::placeholder { color: var(--muted); }
+  .search svg {
+    position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+    width: 18px; height: 18px; color: var(--muted); pointer-events: none;
+  }
+  .search kbd {
+    position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+    font-size: 0.68rem; color: var(--muted);
+    background: var(--card); border: 1px solid var(--border);
+    padding: 2px 6px; border-radius: 5px;
+    pointer-events: none; font-family: inherit;
+  }
+  .search input:focus ~ kbd { display: none; }
+
+  #installBtn {
+    padding: 9px 16px;
+    font-size: 0.82rem;
+    white-space: nowrap;
+    flex: 0 0 auto;
+  }
+
+  @media (max-width: 720px) {
+    .search { order: 3; flex-basis: 100%; max-width: none; margin-bottom: 12px; }
+    .nav { height: auto; padding: 14px 0; flex-wrap: wrap; }
+    #installBtn { order: 2; margin-left: auto; padding: 8px 12px; font-size: 0.78rem; }
+    .search kbd { display: none; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: 56px 0 28px; }
+  .hero h1 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    letter-spacing: -0.035em; font-weight: 800; line-height: 1.1;
+  }
+  .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(100deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero p { color: var(--muted); margin-top: 12px; max-width: 56ch; font-size: 0.98rem; }
+
+  /* ---------- Stats bar ---------- */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin: 28px 0 4px;
+  }
+  .stat { background: var(--bg-soft); padding: 20px 16px; text-align: center; }
+  .stat b { display: block; font-size: 1.5rem; letter-spacing: -0.02em; }
+  .stat small { color: var(--muted); font-size: 0.78rem; }
+  @media (max-width: 560px) { .stats { grid-template-columns: 1fr 1fr; } }
+
+  /* ---------- Category chips ---------- */
+  .chips {
+    display: flex; gap: 10px; overflow-x: auto;
+    padding: 20px 0 8px;
+    scrollbar-width: none;
+  }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip {
+    flex-shrink: 0;
+    padding: 8px 16px; border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--bg-soft);
+    color: var(--muted); font-size: 0.85rem; font-weight: 600;
+    transition: all 0.18s ease;
+  }
+  .chip:hover { color: var(--text); border-color: #33405a; }
+  .chip.active {
+    background: linear-gradient(100deg, var(--accent), var(--accent-2));
+    border-color: transparent; color: #fff;
+  }
+
+  /* ---------- Section title + sort ---------- */
+  .section-title {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 16px;
+    margin: 32px 0 20px;
+  }
+  .section-title h2 { font-size: 1.2rem; letter-spacing: -0.02em; font-weight: 700; }
+  .section-title small { color: var(--muted); font-size: 0.82rem; display: block; margin-top: 2px; }
+
+  .sort-select {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    font-family: inherit;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .sort-select:hover, .sort-select:focus { border-color: #3a4356; }
+
+  /* ---------- App grid ---------- */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding-bottom: 40px;
+  }
+
+  .app-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    display: flex; flex-direction: column;
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+    position: relative;
+  }
+  .app-card:hover {
+    transform: translateY(-4px);
+    border-color: #33405a;
+    background: var(--card-hover);
+    box-shadow: 0 20px 40px -22px rgba(0,0,0,0.9);
+  }
+  .app-card.featured::after {
+    content: "FEATURED";
+    position: absolute; top: 14px; right: 14px;
+    font-size: 0.62rem; font-weight: 800; letter-spacing: 0.08em;
+    padding: 4px 8px; border-radius: 6px;
+    background: rgba(79,140,255,0.15);
+    color: var(--accent);
+    border: 1px solid rgba(79,140,255,0.3);
+  }
+  .app-card.is-new::before {
+    content: "NEW";
+    position: absolute; top: 14px; left: 14px;
+    font-size: 0.62rem; font-weight: 800; letter-spacing: 0.08em;
+    padding: 4px 8px; border-radius: 6px;
+    background: rgba(34,197,94,0.15);
+    color: #22c55e;
+    border: 1px solid rgba(34,197,94,0.3);
+  }
+
+  .app-top { display: flex; gap: 14px; align-items: flex-start; }
+
+  .app-icon {
+    width: 60px; height: 60px; border-radius: 14px;
+    flex-shrink: 0;
+    object-fit: contain;
+    padding: 6px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+  }
+
+  .app-info { flex: 1; min-width: 0; }
+  .app-info h3 {
+    font-size: 1rem; letter-spacing: -0.02em;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .app-info .dev { color: var(--muted); font-size: 0.8rem; margin-top: 2px; }
+
+  .app-meta {
+    display: flex; align-items: center; gap: 10px;
+    margin-top: 14px; font-size: 0.78rem; color: var(--muted);
+  }
+  .rating {
+    display: inline-flex; align-items: center; gap: 4px;
+    color: var(--star); font-weight: 700;
+  }
+  .rating svg { width: 13px; height: 13px; fill: var(--star); }
+  .dot-sep { width: 3px; height: 3px; border-radius: 50%; background: var(--muted); opacity: 0.6; }
+
+  .app-desc {
+    color: var(--muted); font-size: 0.85rem; margin-top: 12px;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    flex: 1;
+  }
+
+  .app-actions {
+    display: flex; gap: 10px; margin-top: 16px;
+  }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+    padding: 10px 16px; border-radius: 11px;
+    font-size: 0.85rem; font-weight: 700;
+    transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    white-space: nowrap;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn-primary {
+    background: linear-gradient(100deg, var(--accent), var(--accent-2));
+    color: #fff; flex: 1;
+  }
+  .btn-primary:hover { opacity: 0.92; }
+  .btn-ghost {
+    background: var(--bg-soft); border: 1px solid var(--border); color: var(--text);
+  }
+  .btn-ghost:hover { border-color: #3a4356; }
+  .btn svg { width: 15px; height: 15px; }
+
+  /* Share button inside actions */
+  .btn-share {
+    padding: 10px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    flex: 0 0 auto;
+  }
+  .btn-share:hover { color: var(--text); border-color: #3a4356; }
+  .btn-share.copied { color: var(--green); border-color: rgba(34,197,94,0.4); }
+
+  .empty {
+    text-align: center; padding: 80px 20px; color: var(--muted);
+    grid-column: 1 / -1;
+  }
+  .empty strong { display: block; color: var(--text); font-size: 1.1rem; margin-bottom: 6px; }
+
+  /* ---------- Modal ---------- */
+  .modal-backdrop {
+    position: fixed; inset: 0; z-index: 100;
+    background: rgba(0,0,0,0.72);
+    backdrop-filter: blur(6px);
+    display: none; align-items: flex-start; justify-content: center;
+    padding: 24px; overflow-y: auto;
+  }
+  .modal-backdrop.open { display: flex; }
+
+  .modal {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    width: 100%; max-width: 860px;
+    margin: auto; overflow: hidden;
+    animation: pop 0.28s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+  }
+  @keyframes pop {
+    from { opacity: 0; transform: translateY(20px) scale(0.97); }
+    to { opacity: 1; transform: none; }
+  }
+
+  .modal-head {
+    display: flex; gap: 18px; align-items: flex-start;
+    padding: 26px 26px 20px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .modal-head .app-icon {
+    width: 84px; height: 84px; border-radius: 20px;
+    padding: 8px;
+  }
+  .modal-head h2 { font-size: 1.35rem; letter-spacing: -0.03em; }
+  .modal-head .dev { color: var(--accent); font-size: 0.88rem; margin-top: 2px; font-weight: 600; }
+  .modal-meta {
+    display: flex; flex-wrap: wrap; gap: 16px;
+    margin-top: 14px; font-size: 0.8rem; color: var(--muted);
+  }
+  .modal-meta b { color: var(--text); display: block; font-size: 0.92rem; font-weight: 700; }
+  .modal-meta > div { text-align: left; }
+  .modal-close {
+    position: absolute; top: 18px; right: 18px;
+    width: 34px; height: 34px; border-radius: 10px;
+    display: grid; place-items: center;
+    background: var(--card); border: 1px solid var(--border);
+    color: var(--muted); transition: all 0.15s;
+  }
+  .modal-close:hover { color: var(--text); border-color: #3a4356; }
+
+  .modal-cta {
+    display: flex; gap: 10px; padding: 0 26px 22px;
+    border-bottom: 1px solid var(--border);
+  }
+  .modal-cta .btn { padding: 12px 20px; font-size: 0.9rem; }
+  .modal-cta .btn-primary { flex: 1; }
+  .modal-cta .btn-ghost { flex: 1; }
+
+  /* ---------- Screenshot gallery ---------- */
+  .gallery { padding: 22px 26px; border-bottom: 1px solid var(--border); }
+  .gallery-label {
+    font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em;
+    color: var(--muted); text-transform: uppercase; margin-bottom: 14px;
+  }
+  .gallery-main {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #0a0c10;
+    border: 1px solid var(--border);
+    aspect-ratio: 16 / 10;
+    display: grid;
+    place-items: center;
+    isolation: isolate;
+    touch-action: pan-y;
+  }
+  .gallery-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(28px) brightness(0.4) saturate(1.4);
+    transform: scale(1.15);
+    z-index: 0;
+    transition: opacity 0.22s ease;
+  }
+  .gallery-main img.shot {
+    position: relative;
+    z-index: 1;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.85);
+    transition: opacity 0.22s ease;
+  }
+  .gallery-nav {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(10,12,16,0.75); backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.12);
+    display: grid; place-items: center; color: #fff;
+    transition: background 0.15s;
+    z-index: 3;
+  }
+  .gallery-nav:hover { background: rgba(10,12,16,0.95); }
+  .gallery-nav.prev { left: 12px; }
+  .gallery-nav.next { right: 12px; }
+  .gallery-nav svg { width: 18px; height: 18px; }
+  .gallery-counter {
+    position: absolute; bottom: 12px; right: 12px;
+    background: rgba(0,0,0,0.65); backdrop-filter: blur(6px);
+    color: #fff; font-size: 0.72rem; font-weight: 600;
+    padding: 4px 10px; border-radius: 999px;
+    z-index: 3;
+  }
+
+  .thumbs {
+    display: flex; gap: 10px; margin-top: 14px;
+    overflow-x: auto; padding-bottom: 4px;
+    scrollbar-width: thin;
+  }
+  .thumbs::-webkit-scrollbar { height: 5px; }
+  .thumbs::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  .thumb {
+    flex-shrink: 0;
+    width: 96px;
+    aspect-ratio: 16 / 10;
+    border-radius: 9px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    opacity: 0.55;
+    transition: all 0.18s ease;
+    background: var(--card);
+    display: grid;
+    place-items: center;
+    padding: 3px;
+  }
+  .thumb img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto; height: auto;
+    border-radius: 5px;
+  }
+  .thumb:hover { opacity: 0.85; }
+  .thumb.active { border-color: var(--accent); opacity: 1; }
+
+  /* ---------- Modal body ---------- */
+  .modal-body { padding: 22px 26px 30px; }
+  .modal-body h4 {
+    font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em;
+    color: var(--muted); text-transform: uppercase; margin-bottom: 10px;
+  }
+  .modal-body p { color: #c3ccda; font-size: 0.92rem; }
+  .modal-body p + h4 { margin-top: 22px; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 4px; }
+  .tag {
+    font-size: 0.75rem; color: var(--muted);
+    background: var(--card); border: 1px solid var(--border);
+    padding: 4px 11px; border-radius: 7px;
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 30px 0; margin-top: 20px;
+    color: var(--muted); font-size: 0.83rem;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  }
+  footer a:hover { color: var(--text); }
+
+  /* ---------- Reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(16px); }
+  .reveal.in { opacity: 1; transform: none; transition: opacity 0.5s ease, transform 0.5s ease; }
+
+  /* ---------- Mobile ---------- */
+  @media (max-width: 560px) {
+    .modal-backdrop { padding: 0; }
+    .modal {
+      border-radius: 0;
+      max-width: none;
+      min-height: 100dvh;
+      margin: 0;
+      animation: slideUp 0.25s ease;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: none; }
+    }
+    .modal-head { flex-direction: column; }
+    .modal-head .app-icon { width: 68px; height: 68px; }
+    .modal-cta { flex-direction: column; }
+    .gallery, .modal-body, .modal-head { padding-left: 18px; padding-right: 18px; }
+    .section-title { flex-direction: column; align-items: flex-start; }
+    .sort-select { width: 100%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header>
+  <div class="wrap nav">
+    <a href="#" class="logo">
+      <span class="logo-mark">🌸</span>
+      <span style="color:var(--text)">हY <span>Appstore</span></span>
+    </a>
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path>
+      </svg>
+      <input id="searchInput" type="search" placeholder="Search apps made by himanshu..." aria-label="Search apps" />
+      <kbd>/</kbd>
+    </div>
+    <button id="installBtn" class="btn btn-primary" onclick="triggerInstall()" style="display:none;">
+      ⬇ Install
+    </button>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<main class="wrap">
+  <section class="hero">
+    <h1>Download my apps.<br><em>Install in one tap.</em></h1>
+    <p>Every app below is a real product I've built and shipped. Browse screenshots, read the details, and download the Android APK directly.</p>
+  </section>
+
+  <!-- Stats bar -->
+  <div class="stats" id="statsBar"></div>
+
+  <!-- Category chips -->
+  <div class="chips" id="chips"></div>
+
+  <!-- Grid header -->
+  <div class="section-title">
+    <div>
+      <h2 id="gridTitle">All apps</h2>
+      <small id="gridCount"></small>
+    </div>
+    <select id="sortBy" class="sort-select" aria-label="Sort apps">
+      <option value="featured">Featured first</option>
+      <option value="rating">Highest rated</option>
+      <option value="newest">Recently updated</option>
+      <option value="name">Name (A–Z)</option>
+    </select>
+  </div>
+
+  <div class="grid" id="appGrid"></div>
+</main>
+
+<!-- ================= MODAL ================= -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" id="modal" role="dialog" aria-modal="true"></div>
+</div>
+
+<footer class="wrap">
+  <span>© <span id="year"></span> Himanshu Yadav · हY Appstore</span>
+  <span>
+    <a href="https://github.com/himanshuspy07" target="_blank" rel="noopener">GitHub</a> ·
+    <a href="mailto:himanshuspy07@gmail.com">Email</a>
+  </span>
+</footer>
+
+<script>
+/* =========================================================================
+   👇 EDIT THIS ARRAY — your app store catalog
+   =========================================================================
+   - icon:         square image (512×512 recommended)
+   - screenshots:  array of paths/URLs — ANY ratio is fine
+   - ratio:        OPTIONAL. Gallery frame shape. Default "16 / 10".
+   - apk:          direct download URL of your .apk (omit if web-only)
+   - web:          optional live web version
+   - featured:     true to show a "FEATURED" badge
+   "NEW" badge is automatic if updated is within the last 90 days.
+========================================================================= */
+const apps = [
+  {
+    id: "kith",
+    name: "Kith — Friendly Messaging",
+    developer: "Himanshu",
+    icon: "kithlogo.jpg",
+    category: "Messaging",
+    rating: 4.9,
+    downloads: "1.2K",
+    size: "6.23 MB",
+    version: "1.1.0",
+    updated: "Sep 2026",
+    featured: true,
+    description: "A calm, friendly messaging app built for close circles. Send text, photos and voice notes with end-to-end encryption, custom chat themes and zero ads.",
+    tags: ["Messaging", "Encrypted", "Chat", "Offline"],
+    ratio: "5 / 7",
+    screenshots: [
+      "images/kithscreenshot2.jpg",
+      "images/kithscreenshot1.jpg"
+    ],
+    apk: "https://github.com/himanshuspy07/appstore/releases/download/v1.1.0/kith.apk",
+    web: "https://kith.indevs.in/"
+  },
+  {
+    id: "spotifyclone",
+    name: "Spotify Clone",
+    developer: "Himanshu Yadav",
+    icon: "images/spotifylogo.png",
+    category: "Music",
+    rating: 4.8,
+    downloads: "2.5K",
+    size: "6.31 MB",
+    version: "1.4.2",
+    updated: "Jun 2026",
+    featured: true,
+    description: "A Spotify clone built from scratch — stream music, create playlists, browse albums and artists, and control playback with a full-featured player. Includes real-time search, a persistent queue, and a clean, responsive interface.",
+    tags: ["streaming", "audio player", "Music", "playlists"],
+    ratio: "5 / 7",
+    screenshots: [
+      "images/spotifyscreenshot2.jpg",
+      "images/spotifyscreenshot1.jpg",
+      "images/spotifyscreenshot4.jpg",
+      "images/spotifyscreenshot3.jpg"
+    ],
+    apk: "https://github.com/himanshuspy07/appstore/releases/download/v1.2.0/spotifyclone.apk",
+    web: "https://urspotify.ai.studio/"
+  },
+  {
+    id: "youtubeclone",
+    name: "Youtube Clone",
+    developer: "Himanshu Yadav",
+    icon: "images/youtubelogo.jpeg",
+    category: "Video",
+    rating: 4.8,
+    downloads: "2.1K",
+    size: "5.87 MB",
+    version: "3.0.1",
+    updated: "Sep 2026",
+    featured: false,
+    description: "A video streaming web app with a custom HTML5 player, adaptive quality, channel pages, search, and a recommendation feed. Built with React and a REST API, styled to feel like YouTube, and packaged as an installable Android APK.",
+    tags: ["content", "videography", "social"],
+    ratio: "9 / 16",
+    screenshots: [
+      "images/youtubescreenshot1.jpg",
+      "images/youtubescreenshot2.jpg",
+      "images/youtubescreenshot3.jpg",
+      "images/youtubescreenshot4.jpg"
+    ],
+    apk: "https://github.com/himanshuspy07/appstore/releases/download/v2.3.1/YoutubeClone.apk",
+    web: "https://uryoutube.ai.studio/"
+  },
+  {
+    id: "telegramclone",
+    name: "Telegram Clone",
+    developer: "Himanshu Yadav",
+    icon: "images/telegramlogo.png",
+    category: "Messaging",
+    rating: 4.6,
+    downloads: "560",
+    size: "5.87 MB",
+    version: "0.7.4",
+    updated: "Jul 2026",
+    featured: false,
+    description: "A real-time messaging app with private chats, group conversations, media sharing, and read receipts. Supports typing indicators, message search, and a clean interface that feels instant — built as a Telegram clone.",
+    tags: ["clone", "chatting", "privacy"],
+    ratio: "9 / 16",
+    screenshots: [
+      "images/telegramscreenshot1.jpg",
+      "images/telegramscreenshot2.jpg",
+      "images/telegramscreenshot3.jpg"
+    ],
+    apk: "https://github.com/himanshuspy07/appstore/releases/download/v0.7.4/TelegramClone.apk",
+    web: "https://urtelegram.onrender.com/"
+  },
+  {
+    id: "taskdaily",
+    name: "TaskDaily",
+    developer: "Himanshu Yadav",
+    icon: "images/taskdailylogo.jpg",
+    category: "Productivity",
+    rating: 4.9,
+    downloads: "3.4K",
+    size: "Web only",
+    version: "2.5.1",
+    updated: "Feb 2026",
+    featured: false,
+    description: "A daily task manager that helps you plan, prioritize, and complete your to-dos. Features lists, due dates, reminders, and progress tracking in a clean, distraction-free interface.",
+    tags: ["Tasks", "Productivity", "To-Do", "Daily Planner"],
+    ratio: "9 / 16",
+    screenshots: [
+      "images/tasksdailyscreenshot1.jpg",
+      "images/tasksdailyscreenshot2.jpg"
+    ],
+    web: "https://tasksdaily.vercel.app/"
+  },
+  {
+    id: "jeeexamsimulator",
+    name: "JEE Exam Simulator",
+    developer: "Himanshu Yadav",
+    icon: "images/jeesimulatorlogo.jpg",
+    category: "Education",
+    rating: 4.2,
+    downloads: "3.4K",
+    size: "Web only",
+    version: "1.0.0",
+    updated: "Dec 2025",
+    featured: false,
+    description: "A full JEE exam simulator with a real NTA-style interface, timed mock tests, question palette, and detailed analytics. Practice Physics, Chemistry, and Maths in an environment that feels exactly like the real exam.",
+    tags: ["JEE", "Exam", "Mock Test", "Practice", "Education"],
+    ratio: "9 / 16",
+    screenshots: [
+      "images/jeesimulator-screenshot1.jpg",
+      "images/jeesimulator-screenshot2.jpg",
+      "images/jeesimulator-screenshot3.jpg",
+      "images/jeesimulator-screenshot4.jpg"
+    ],
+    web: "https://jee-exam-simulator.vercel.app/"
+  }
+];
+
+/* =========================================================================
+   Rendering logic — no edits needed below
+   ========================================================================= */
+
+const grid = document.getElementById("appGrid");
+const chipsEl = document.getElementById("chips");
+const searchInput = document.getElementById("searchInput");
+const modalBackdrop = document.getElementById("modalBackdrop");
+const modal = document.getElementById("modal");
+const gridTitle = document.getElementById("gridTitle");
+const gridCount = document.getElementById("gridCount");
+const sortBy = document.getElementById("sortBy");
+
+let activeCategory = "All";
+let query = "";
+let currentApp = null;
+let currentShot = 0;
+
+/* ---------- Helpers ---------- */
+function isNew(updatedStr) {
+  const d = new Date(updatedStr);
+  if (isNaN(d)) return false;
+  return (Date.now() - d.getTime()) < 1000 * 60 * 60 * 24 * 90;
+}
+
+const ICON_FALLBACK = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+function iconFallbackAttr() {
+  return `onerror="this.onerror=null;this.style.background='linear-gradient(135deg,#4f8cff,#7c5cff)';this.src='${ICON_FALLBACK}'"`;
+}
+
+/* ---------- Stats bar ---------- */
+(function renderStats() {
+  const total = apps.length;
+  const avg = (apps.reduce((s, a) => s + (parseFloat(a.rating) || 0), 0) / total).toFixed(1);
+  const cats = new Set(apps.map(a => a.category)).size;
+  document.getElementById("statsBar").innerHTML = `
+    <div class="stat"><b>${total}</b><small>Apps published</small></div>
+    <div class="stat"><b>${avg} ★</b><small>Average rating</small></div>
+    <div class="stat"><b>${cats}</b><small>Categories</small></div>
+  `;
+})();
+
+/* ---------- Category chips ---------- */
+const categories = ["All", ...new Set(apps.map(a => a.category))];
+chipsEl.innerHTML = categories.map(c =>
+  `<button class="chip ${c === "All" ? "active" : ""}" data-cat="${c}">${c}</button>`
+).join("");
+
+chipsEl.addEventListener("click", (e) => {
+  const chip = e.target.closest(".chip");
+  if (!chip) return;
+  activeCategory = chip.dataset.cat;
+  chipsEl.querySelectorAll(".chip").forEach(c => c.classList.toggle("active", c === chip));
+  renderGrid();
+});
+
+/* ---------- Search (multi-term) ---------- */
+searchInput.addEventListener("input", (e) => {
+  query = e.target.value.trim().toLowerCase();
+  renderGrid();
+});
+
+/* "/" focuses search */
+document.addEventListener("keydown", (e) => {
+  if (e.key === "/" && document.activeElement !== searchInput && !modalBackdrop.classList.contains("open")) {
+    e.preventDefault();
+    searchInput.focus();
+  }
+});
+
+/* ---------- Sort ---------- */
+sortBy.addEventListener("change", renderGrid);
+
+/* ---------- Render grid ---------- */
+function renderGrid() {
+  const terms = query.split(/\s+/).filter(Boolean);
+
+  const filtered = apps.filter(a => {
+    const matchesCat = activeCategory === "All" || a.category === activeCategory;
+    const haystack = (a.name + " " + a.developer + " " + a.tags.join(" ") + " " + a.category).toLowerCase();
+    const matchesQuery = !terms.length || terms.every(t => haystack.includes(t));
+    return matchesCat && matchesQuery;
+  });
+
+  const sortMode = sortBy.value;
+  filtered.sort((a, b) => {
+    if (sortMode === "rating") return (parseFloat(b.rating) || 0) - (parseFloat(a.rating) || 0);
+    if (sortMode === "name") return a.name.localeCompare(b.name);
+    if (sortMode === "newest") return new Date(b.updated) - new Date(a.updated);
+    return (b.featured ? 1 : 0) - (a.featured ? 1 : 0);
+  });
+
+  gridTitle.textContent = activeCategory === "All" ? "All apps" : activeCategory;
+  gridCount.textContent = filtered.length + (filtered.length === 1 ? " app" : " apps");
+
+  if (!filtered.length) {
+    grid.innerHTML = `<div class="empty"><strong>No apps found</strong>Try a different search or category.</div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map(a => {
+    const primaryCta = a.apk
+      ? `<a class="btn btn-primary" href="${a.apk}" download onclick="event.stopPropagation()">
+           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+             <polyline points="7 10 12 15 17 10"></polyline>
+             <line x1="12" y1="15" x2="12" y2="3"></line>
+           </svg>
+           Download APK
+         </a>`
+      : `<a class="btn btn-primary" href="${a.web || "#"}" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+             <circle cx="12" cy="12" r="10"></circle>
+             <line x1="2" y1="12" x2="22" y2="12"></line>
+             <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+           </svg>
+           Open Web App
+         </a>`;
+
+    return `
+    <article class="app-card reveal ${a.featured ? "featured" : ""} ${isNew(a.updated) ? "is-new" : ""}" data-id="${a.id}">
+      <div class="app-top">
+        <img class="app-icon" src="${a.icon}" alt="${a.name} icon" loading="lazy" ${iconFallbackAttr()}>
+        <div class="app-info">
+          <h3>${a.name}</h3>
+          <div class="dev">${a.developer}</div>
+        </div>
+      </div>
+      <div class="app-meta">
+        <span class="rating">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+          ${a.rating}
+        </span>
+        <span class="dot-sep"></span>
+        <span>${a.category}</span>
+      </div>
+      <p class="app-desc">${a.description}</p>
+      <div class="app-actions">
+        ${primaryCta}
+        <button class="btn btn-share" data-share-id="${a.id}" onclick="event.stopPropagation();copyLink('${a.id}', this)" title="Copy link" aria-label="Copy link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;">
+            <path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7.1-7.1l-1.7 1.7"></path>
+            <path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7.1 7.1l1.7-1.7"></path>
+          </svg>
+        </button>
+      </div>
+    </article>
+  `;
+  }).join("");
+
+  observeReveals();
+}
+
+/* ---------- Copy link ---------- */
+function copyLink(id, el) {
+  const url = location.origin + location.pathname + "#" + id;
+  const done = () => {
+    el.classList.add("copied");
+    setTimeout(() => el.classList.remove("copied"), 1200);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(url).then(done).catch(done);
+  } else {
+    const ta = document.createElement("textarea");
+    ta.value = url; document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); } catch (e) {}
+    document.body.removeChild(ta);
+    done();
+  }
+}
+
+/* ---------- Modal ---------- */
+function openApp(id) {
+  const found = apps.find(a => a.id === id);
+  if (!found) return;
+  currentApp = found;
+  currentShot = 0;
+  renderModal();
+  modalBackdrop.classList.add("open");
+  document.body.style.overflow = "hidden";
+  if (location.hash !== "#" + id) location.hash = id;
+}
+
+function closeModal() {
+  modalBackdrop.classList.remove("open");
+  document.body.style.overflow = "";
+  currentApp = null;
+  if (location.hash) history.replaceState(null, "", location.pathname);
+}
+
+function renderModal() {
+  const a = currentApp;
+  const shots = a.screenshots || [];
+  const frameRatio = a.ratio || "16 / 10";
+  const sizeLabel = /web/i.test(a.size) ? "Platform" : "Size";
+
+  const ctaApk = a.apk
+    ? `<a class="btn btn-primary" href="${a.apk}" download>
+         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+           <polyline points="7 10 12 15 17 10"></polyline>
+           <line x1="12" y1="15" x2="12" y2="3"></line>
+         </svg>
+         Download APK
+       </a>`
+    : "";
+
+  const ctaWeb = a.web
+    ? `<a class="btn ${a.apk ? "btn-ghost" : "btn-primary"}" href="${a.web}" target="_blank" rel="noopener">
+         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+           <circle cx="12" cy="12" r="10"></circle>
+           <line x1="2" y1="12" x2="22" y2="12"></line>
+           <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+         </svg>
+         Open Web App
+       </a>`
+    : "";
+
+  modal.innerHTML = `
+    <div class="modal-head">
+      <img class="app-icon" src="${a.icon}" alt="${a.name} icon" ${iconFallbackAttr()}>
+      <div style="flex:1;min-width:0">
+        <h2>${a.name}</h2>
+        <div class="dev">${a.developer}</div>
+        <div class="modal-meta">
+          <div><b>${a.rating} ★</b>Rating</div>
+          <div><b>${a.downloads}</b>Downloads</div>
+          <div><b>${a.size}</b>${sizeLabel}</div>
+          <div><b>${a.version}</b>Version</div>
+        </div>
+      </div>
+      <button class="modal-close" onclick="closeModal()" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <div class="modal-cta">${ctaApk}${ctaWeb}</div>
+
+    ${shots.length ? `
+    <div class="gallery">
+      <div class="gallery-label">Screenshots (${shots.length})</div>
+      <div class="gallery-main" style="aspect-ratio:${frameRatio};">
+        <img class="gallery-bg" id="bgShot" src="${shots[0]}" alt="" aria-hidden="true">
+        <img class="shot" id="mainShot" src="${shots[0]}" alt="${a.name} screenshot 1">
+        ${shots.length > 1 ? `
+          <button class="gallery-nav prev" onclick="prevShot()" aria-label="Previous screenshot">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          <button class="gallery-nav next" onclick="nextShot()" aria-label="Next screenshot">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        ` : ""}
+        <span class="gallery-counter" id="shotCounter">1 / ${shots.length}</span>
+      </div>
+      <div class="thumbs" id="thumbs">
+        ${shots.map((s, i) => `
+          <button class="thumb ${i === 0 ? "active" : ""}" data-i="${i}" aria-label="Screenshot ${i + 1}">
+            <img src="${s}" alt="" loading="lazy">
+          </button>
+        `).join("")}
+      </div>
+    </div>` : ""}
+
+    <div class="modal-body">
+      <h4>About this app</h4>
+      <p>${a.description}</p>
+      <h4>Tags</h4>
+      <div class="tag-row">${a.tags.map(t => `<span class="tag">${t}</span>`).join("")}</div>
+      <h4>Last updated</h4>
+      <p>${a.updated}</p>
+    </div>
+  `;
+
+  // Thumbnail clicks
+  const thumbs = modal.querySelector("#thumbs");
+  if (thumbs) {
+    thumbs.addEventListener("click", (e) => {
+      const btn = e.target.closest(".thumb");
+      if (!btn) return;
+      setShot(parseInt(btn.dataset.i, 10));
+    });
+  }
+
+  // Swipe gestures on gallery
+  const galleryMain = modal.querySelector(".gallery-main");
+  if (galleryMain && shots.length > 1) {
+    let startX = 0, startY = 0, tracking = false;
+    galleryMain.addEventListener("touchstart", (e) => {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      tracking = true;
+    }, { passive: true });
+    galleryMain.addEventListener("touchend", (e) => {
+      if (!tracking) return;
+      tracking = false;
+      const dx = e.changedTouches[0].clientX - startX;
+      const dy = e.changedTouches[0].clientY - startY;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+        dx > 0 ? prevShot() : nextShot();
+      }
+    }, { passive: true });
+  }
+}
+
+/* ---------- Gallery shot switching ---------- */
+function setShot(i) {
+  const shots = currentApp.screenshots;
+  if (!shots || !shots.length) return;
+  currentShot = (i + shots.length) % shots.length;
+
+  const main = document.getElementById("mainShot");
+  const bg = document.getElementById("bgShot");
+
+  if (main) {
+    main.style.opacity = "0";
+    if (bg) bg.style.opacity = "0";
+    setTimeout(() => {
+      main.src = shots[currentShot];
+      if (bg) bg.src = shots[currentShot];
+      main.style.opacity = "1";
+      if (bg) bg.style.opacity = "1";
+    }, 120);
+  }
+  const counter = document.getElementById("shotCounter");
+  if (counter) counter.textContent = `${currentShot + 1} / ${shots.length}`;
+  modal.querySelectorAll(".thumb").forEach((t, idx) =>
+    t.classList.toggle("active", idx === currentShot)
+  );
+}
+function nextShot() { setShot(currentShot + 1); }
+function prevShot() { setShot(currentShot - 1); }
+
+/* ---------- Wire clicks ---------- */
+grid.addEventListener("click", (e) => {
+  const card = e.target.closest(".app-card");
+  if (!card) return;
+  if (e.target.closest("a")) return;
+  if (e.target.closest(".btn-share")) return;
+  openApp(card.dataset.id);
+});
+
+modalBackdrop.addEventListener("click", (e) => {
+  if (e.target === modalBackdrop) closeModal();
+});
+
+document.addEventListener("keydown", (e) => {
+  if (!modalBackdrop.classList.contains("open")) return;
+  if (e.key === "Escape") closeModal();
+  if (currentApp && currentApp.screenshots) {
+    if (e.key === "ArrowRight") nextShot();
+    if (e.key === "ArrowLeft") prevShot();
+  }
+});
+
+/* ---------- Deep linking (#app-id) ---------- */
+function openFromHash() {
+  const id = decodeURIComponent(location.hash.replace("#", ""));
+  if (!id) {
+    if (currentApp) closeModal();
+    return;
+  }
+  if (currentApp && currentApp.id === id) return;
+  if (apps.find(a => a.id === id)) openApp(id);
+}
+window.addEventListener("hashchange", openFromHash);
+
+/* ---------- Reveal ---------- */
+let io;
+function observeReveals() {
+  if (io) io.disconnect();
+  io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+}
+
+/* ---------- PWA install ---------- */
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").catch((err) => console.warn("[PWA]", err));
+  });
+}
+
+let deferredInstallPrompt = null;
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+  const btn = document.getElementById("installBtn");
+  if (btn) btn.style.display = "inline-flex";
+});
+window.addEventListener("appinstalled", () => {
+  deferredInstallPrompt = null;
+  const btn = document.getElementById("installBtn");
+  if (btn) btn.style.display = "none";
+});
+function triggerInstall() {
+  if (!deferredInstallPrompt) return;
+  deferredInstallPrompt.prompt();
+  deferredInstallPrompt.userChoice.then(() => { deferredInstallPrompt = null; });
+}
+
+/* ---------- Init ---------- */
+document.getElementById("year").textContent = new Date().getFullYear();
+renderGrid();
+openFromHash();
+</script>
+</body>
+</html>
